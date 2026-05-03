@@ -1,0 +1,29 @@
+services:
+  ghost:
+    image: ghost:5.130.6-alpine
+    container_name: ghost
+    restart: unless-stopped
+    ports:
+      - "2368:2368"
+    environment:
+      - database__client=mysql
+      - database__connection__host=192.168.68.107
+      - database__connection__user=nextcloud
+      - database__connection__password=${GHOST_DB_PASSWORD}
+      - database__connection__database=ghost
+      - url=https://blog.szakoswulkan.eu
+      - mail__transport=SMTP
+      - mail__from=Stack Rewired <clint.wulkan@gmail.com>
+      - mail__options__host=smtp.gmail.com
+      - mail__options__port=465
+      - mail__options__secure=true
+      - mail__options__auth__user=clint.wulkan@gmail.com
+      - mail__options__auth__pass=${GHOST_SMTP_PASSWORD}
+      - TZ=Europe/Stockholm
+    volumes:
+      - /opt/stacks/ghost/content:/var/lib/ghost/content
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:2368"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
