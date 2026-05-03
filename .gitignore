@@ -1,0 +1,13 @@
+# Lokala secret-filer (skall ALDRIG committas)
+.env
+*.env
+secrets/
+*.secret
+
+# IDE
+.vscode/
+.idea/
+
+# OS-skräp
+.DS_Store
+Thumbs.db
