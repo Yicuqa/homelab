@@ -23,7 +23,7 @@ services:
     volumes:
       - /opt/stacks/ghost/content:/var/lib/ghost/content
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:2368"]
+      test: ["CMD-SHELL", "wget -qO- http://localhost:2368/ghost/api/admin/site/ | grep -q '\"site\"' || exit 1"]
       interval: 60s
       timeout: 10s
       retries: 3
