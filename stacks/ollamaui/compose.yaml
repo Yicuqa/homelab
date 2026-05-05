@@ -1,0 +1,16 @@
+services:
+  ollamaui:
+    image: ghcr.io/chrizzo84/ollamaui:latest
+    container_name: ollamaui
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+      - "3000:3000"
+    volumes:
+      - /opt/appdata/ollamaui/ollama_models:/root/.ollama
+      - /opt/appdata/ollamaui/ui_database:/app/data
+    environment:
+      OLLAMA_HOST: http://localhost:11434
+      OLLAMA_LISTEN: 0.0.0.0:11434
+      OLLAMA_ORIGINS: https://ai.szakoswulkan.eu,https://ai-api.szakoswulkan.eu
+      TZ: Europe/Stockholm
