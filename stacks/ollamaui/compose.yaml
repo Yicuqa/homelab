@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     ports:
       - "11434:11434"
-      - "3000:3000"
+      - "3002:3000"
     volumes:
       - /opt/appdata/ollamaui/ollama_models:/root/.ollama
       - /opt/appdata/ollamaui/ui_database:/app/data
