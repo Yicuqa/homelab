@@ -1,0 +1,19 @@
+# custom-apps/claude-office/compose.yaml
+services:
+  claude-office:
+    image: ghcr.io/paulrobello/claude-office:latest  # se not nedan
+    container_name: claude-office
+    restart: unless-stopped
+    ports:
+      - "3030:3030"   # frontend
+      - "8000:8000"   # backend / hooks endpoint
+    environment:
+      # Optional: AI-genererade agent-namn och task-summaries via Haiku.
+      # Kostar tokens — börja utan, slå på senare om du gillar visualizern.
+      # CLAUDE_CODE_OAUTH_TOKEN: ${CLAUDE_CODE_OAUTH_TOKEN}
+      TZ: Europe/Stockholm
+    volumes:
+      - claude-office-data:/data
+
+volumes:
+  claude-office-data:
