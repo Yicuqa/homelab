@@ -1,7 +1,7 @@
 services:
   claude-office:
     build:
-      context: https://github.com/paulrobello/claude-office.git#main
+      context: https://github.com/Yicuqa/claude-office.git#relative-urls
     image: claude-office:local
     container_name: claude-office
     restart: unless-stopped
