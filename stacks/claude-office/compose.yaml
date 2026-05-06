@@ -10,13 +10,14 @@ services:
     environment:
       # CLAUDE_CODE_OAUTH_TOKEN: ${CLAUDE_CODE_OAUTH_TOKEN}
       TZ: Europe/Stockholm
-      # Place the SQLite file inside the persistent volume mounted at /data
-      # below. Without this, the backend writes to its default path
-      # (/app/visualizer.db) which lives in the ephemeral container
-      # filesystem and is wiped on every Komodo redeploy.
-      DATABASE_URL: "sqlite+aiosqlite:////data/visualizer.db"
+      # Persist the SQLite file inside the named volume below. The image
+      # prepares /app/data with appuser ownership (see Dockerfile), so we
+      # mount the volume there — mounting at a fresh path like /data
+      # would be created root-owned and SQLite would fail to open the
+      # file when the backend runs as appuser.
+      DATABASE_URL: "sqlite+aiosqlite:////app/data/visualizer.db"
     volumes:
-      - claude-office-data:/data
+      - claude-office-data:/app/data
 
 volumes:
   claude-office-data:
