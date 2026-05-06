@@ -1,11 +1,12 @@
-# custom-apps/claude-office/compose.yaml
 services:
   claude-office:
-    image: ghcr.io/paulrobello/claude-office:latest  # se not nedan
+    build:
+      context: https://github.com/paulrobello/claude-office.git#main
+    image: claude-office:local
     container_name: claude-office
     restart: unless-stopped
     ports:
-      - "3030:3030"   # frontend
+      - "3030:3000"   # host:container — frontend (Next.js på 3000 internt)
       - "8000:8000"   # backend / hooks endpoint
     environment:
       # Optional: AI-genererade agent-namn och task-summaries via Haiku.
