@@ -6,11 +6,8 @@ services:
     container_name: claude-office
     restart: unless-stopped
     ports:
-      - "3030:3000"   # host:container — frontend (Next.js på 3000 internt)
-      - "8000:8000"   # backend / hooks endpoint
+      - "8000:8000"   # frontend + backend (Next.js statisk serverad från FastAPI)
     environment:
-      # Optional: AI-genererade agent-namn och task-summaries via Haiku.
-      # Kostar tokens — börja utan, slå på senare om du gillar visualizern.
       # CLAUDE_CODE_OAUTH_TOKEN: ${CLAUDE_CODE_OAUTH_TOKEN}
       TZ: Europe/Stockholm
     volumes:
