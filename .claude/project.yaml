@@ -1,0 +1,12 @@
+# Per-project metadata read by project-agnostic skills.
+# See /config/.claude/projects.yaml for the discovery mechanism.
+
+name: homelab
+description: Komodo-managed compose files for shared infrastructure on LXC 200 (mariadb, claude-office, …).
+
+# Compose files here are deployed by Komodo, not by hand.
+deploy: komodo-managed
+
+compose_dir: stacks
+containers: []
+db: null
