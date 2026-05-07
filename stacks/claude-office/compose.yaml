@@ -20,9 +20,12 @@ services:
       - claude-office-data:/app/data
       # Read-only access to the host workspace so GitService can run
       # git status/log against the project the user is working in.
-      # Hooks send paths like /config/workspace/<project>; mounting at
-      # the SAME path means no path translation is needed.
-      - /config/workspace:/config/workspace:ro
+      # Code-server (the chat host) bind-mounts the LXC's /opt at
+      # /config/workspace inside its container, so hooks send paths
+      # like /config/workspace/<project>. Mirroring the same mapping
+      # here lets those paths resolve identically inside claude-office
+      # — no path translation needed.
+      - /opt:/config/workspace:ro
 
 volumes:
   claude-office-data:
