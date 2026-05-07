@@ -18,6 +18,11 @@ services:
       DATABASE_URL: "sqlite+aiosqlite:////app/data/visualizer.db"
     volumes:
       - claude-office-data:/app/data
+      # Read-only access to the host workspace so GitService can run
+      # git status/log against the project the user is working in.
+      # Hooks send paths like /config/workspace/<project>; mounting at
+      # the SAME path means no path translation is needed.
+      - /config/workspace:/config/workspace:ro
 
 volumes:
   claude-office-data:
