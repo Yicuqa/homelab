@@ -1,0 +1,18 @@
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=99
+      - PGID=100
+      - TZ=Europe/Berlin
+      - UMASK=022
+      - SONARR_CHANNEL=v4-stable
+      - SONARR_BRANCH=main
+    volumes:
+      - /mnt/appdata/sonarr:/config
+      - /mnt/Media/Series:/tv
+      - /mnt/Media/Downloads:/downloads
+    ports:
+      - "8989:8989"
+    restart: unless-stopped
