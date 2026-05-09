@@ -1,0 +1,13 @@
+services:
+  homeassistant:
+    image: lscr.io/linuxserver/homeassistant:latest
+    container_name: homeassistant
+    network_mode: host
+    environment:
+      - PUID=99
+      - PGID=100
+      - TZ=Europe/Berlin
+      - UMASK=022
+    volumes:
+      - /mnt/appdata/homeassistant:/config
+    restart: unless-stopped
