@@ -1,0 +1,14 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    user: "99:100"
+    network_mode: host
+    environment:
+      - TZ=Europe/Berlin
+      - JELLYFIN_PublishedServerUrl=192.168.68.107
+    volumes:
+      - /mnt/appdata/Jellyfin:/config
+      - /mnt/Media/Series:/data/tvshows
+      - /mnt/Media/Movies:/data/movies
+    restart: unless-stopped
