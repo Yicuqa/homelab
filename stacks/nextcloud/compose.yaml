@@ -1,0 +1,15 @@
+services:
+  nextcloud:
+    image: nextcloud:latest
+    container_name: nextcloud
+    user: "99:100"
+    environment:
+      - TZ=Europe/Berlin
+    volumes:
+      - /mnt/appdata/nextcloud/html:/var/www/html
+      - /mnt/appdata/nextcloud/apps:/var/www/html/custom_apps
+      - /mnt/appdata/nextcloud/config:/var/www/html/config
+      - /mnt/appdata/nextcloud/data:/var/www/html/data
+    ports:
+      - "8666:80"
+    restart: unless-stopped
