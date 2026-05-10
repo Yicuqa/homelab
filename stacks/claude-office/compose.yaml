@@ -25,6 +25,13 @@ services:
       # /config/.claude/... → /host-claude/... in app/config.translate_path.
       CLAUDE_PATH_HOST: "/config/.claude"
       CLAUDE_PATH_CONTAINER: "/host-claude"
+      # Allowlist for GitService. Hooks emit project paths under
+      # /config/workspace (since both code-server and this container bind
+      # the LXC host's /opt at /config/workspace). The code default is
+      # ["/opt"] from an earlier deploy layout — override here so the
+      # allowlist matches the actual bind-mount, otherwise GitService
+      # rejects every project_root and the git-status panel stays empty.
+      ALLOWED_PROJECT_ROOTS: '["/config/workspace"]'
     volumes:
       - claude-office-data:/app/data
       # Read-only access to the host workspace so GitService can run
