@@ -1,0 +1,13 @@
+services:
+  flame:
+    image: pawelmalak/flame:latest
+    container_name: flame
+    restart: unless-stopped
+    ports:
+      - "5005:5005"
+    volumes:
+      - /opt/appdata/flame:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      TZ: Europe/Stockholm
+      PASSWORD: ${FLAME_PASSWORD:?set FLAME_PASSWORD in Komodo stack env}
