@@ -13,4 +13,9 @@ services:
       - /mnt/Media/Series:/tv
     ports:
       - "6767:6767"
+    labels:
+      flame.type: application
+      flame.name: Bazarr
+      flame.icon: closed-caption
+      flame.url: https://subtitles.szakoswulkan.eu
     restart: unless-stopped
