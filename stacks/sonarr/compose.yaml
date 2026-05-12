@@ -15,4 +15,9 @@ services:
       - /mnt/Media/Downloads:/downloads
     ports:
       - "8989:8989"
+    labels:
+      flame.type: application
+      flame.name: Sonarr
+      flame.icon: television-classic
+      flame.url: https://series.szakoswulkan.eu
     restart: unless-stopped
