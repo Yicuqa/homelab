@@ -13,4 +13,9 @@ services:
       - "/mnt/Media/Inomplete downloads:/incomplete-downloads"
     ports:
       - "8080:8080"
+    labels:
+      flame.type: application
+      flame.name: SABnzbd
+      flame.icon: download
+      flame.url: https://download.szakoswulkan.eu
     restart: unless-stopped
