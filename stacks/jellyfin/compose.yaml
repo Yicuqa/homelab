@@ -11,4 +11,9 @@ services:
       - /mnt/appdata/Jellyfin:/config
       - /mnt/Media/Series:/data/tvshows
       - /mnt/Media/Movies:/data/movies
+    labels:
+      flame.type: application
+      flame.name: Jellyfin
+      flame.icon: jellyfish
+      flame.url: https://stream.szakoswulkan.eu
     restart: unless-stopped
