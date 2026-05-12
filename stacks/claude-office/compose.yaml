@@ -52,6 +52,11 @@ services:
       # Code-server's /config maps to /opt/appdata/code-server on the
       # LXC host (verified via `docker inspect code-server`).
       - /opt/appdata/code-server/.claude:/host-claude:ro
+    labels:
+      flame.type: application
+      flame.name: Claude Office
+      flame.icon: office-building
+      flame.url: https://agents.szakoswulkan.eu
 
 volumes:
   claude-office-data:
