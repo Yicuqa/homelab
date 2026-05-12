@@ -10,6 +10,11 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       TZ: Europe/Stockholm
+    labels:
+      flame.type: application
+      flame.name: Uptime Kuma
+      flame.icon: heart-pulse
+      flame.url: https://kuma.szakoswulkan.eu
     healthcheck:
       test: ["CMD-SHELL", "extra/healthcheck"]
       interval: 60s
