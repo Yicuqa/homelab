@@ -11,6 +11,11 @@ services:
       PUID: 1000
       PGID: 1000
       TZ: Europe/Stockholm
+    labels:
+      flame.type: application
+      flame.name: Prowlarr
+      flame.icon: magnify-scan
+      flame.url: https://prowlarr.szakoswulkan.eu
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:9696/ping > /dev/null || exit 1"]
       interval: 60s
