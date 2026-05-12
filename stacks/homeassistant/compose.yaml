@@ -10,4 +10,9 @@ services:
       - UMASK=022
     volumes:
       - /mnt/appdata/homeassistant:/config
+    labels:
+      flame.type: application
+      flame.name: Home Assistant
+      flame.icon: home-assistant
+      flame.url: https://nexus.szakoswulkan.eu
     restart: unless-stopped
