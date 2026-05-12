@@ -13,4 +13,9 @@ services:
       - /mnt/Media/Downloads:/downloads
     ports:
       - "7878:7878"
+    labels:
+      flame.type: application
+      flame.name: Radarr
+      flame.icon: movie
+      flame.url: https://movies.szakoswulkan.eu
     restart: unless-stopped
