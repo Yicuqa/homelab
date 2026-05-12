@@ -12,4 +12,9 @@ services:
       - /mnt/appdata/nextcloud/data:/var/www/html/data
     ports:
       - "8666:80"
+    labels:
+      flame.type: application
+      flame.name: Nextcloud
+      flame.icon: cloud
+      flame.url: https://cloud.szakoswulkan.eu
     restart: unless-stopped
