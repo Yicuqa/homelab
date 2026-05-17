@@ -1,0 +1,20 @@
+services:
+  komodo-periphery:
+    image: ghcr.io/moghtech/komodo-periphery:latest
+    container_name: komodo-periphery
+    restart: unless-stopped
+    ports:
+      - "8120:8120"
+    environment:
+      PERIPHERY_ROOT_DIRECTORY: /etc/komodo
+      PERIPHERY_REPO_DIR: /etc/komodo/repos
+      PERIPHERY_STACK_DIR: /etc/komodo/stacks
+      PERIPHERY_SSL_ENABLED: "false"
+      PERIPHERY_PASSKEYS: ${PERIPHERY_PASSKEY}
+    volumes:
+      - periphery-data:/etc/komodo
+      - /proc:/proc
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  periphery-data:
