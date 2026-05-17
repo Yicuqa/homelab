@@ -13,9 +13,10 @@ services:
       SUDO_PASSWORD: ${CODE_SERVER_SUDO_PASSWORD}
       DEFAULT_WORKSPACE: /config/workspace
       PROXY_DOMAIN: code.szakoswulkan.eu
+      DOCKER_HOST: ssh://root@192.168.68.107
     volumes:
       - /opt/appdata/code-server:/config
-      - /opt:/config/workspace
+      - /opt/workspace:/config/workspace
       - /opt/appdata/code-server/custom-cont-init.d:/custom-cont-init.d
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
