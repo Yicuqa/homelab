@@ -1,0 +1,24 @@
+services:
+  transcript-relay:
+    # Build from the transcript-relay/ subdir of the same repo as
+    # claude-office. The :transcript-relay suffix tells BuildKit which
+    # subtree to use as build context; the Dockerfile in that subtree
+    # references files relative to itself (pyproject.toml, src/).
+    build:
+      context: https://github.com/Yicuqa/claude-office.git#relative-urls:transcript-relay
+    image: claude-office-transcript-relay:local
+    container_name: claude-office-transcript-relay
+    restart: unless-stopped
+    volumes:
+      # Read-only bind to the code-server LXC's .claude tree. The relay
+      # only ever tails files here — write access would let a broken
+      # build wipe transcripts. Path matches how code-server's volume
+      # bind exposes it on the host filesystem.
+      - /opt/appdata/code-server/.claude:/host-claude:ro
+    environment:
+      BACKEND_URL: http://192.168.68.107:8000/api/v1/events
+      LOG_LEVEL: INFO
+    labels:
+      flame.type: application
+      flame.name: Claude Office Transcript Relay
+      flame.icon: file-document-multiple-outline

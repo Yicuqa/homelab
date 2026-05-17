@@ -16,42 +16,8 @@ services:
       # would be created root-owned and SQLite would fail to open the
       # file when the backend runs as appuser.
       DATABASE_URL: "sqlite+aiosqlite:////app/data/visualizer.db"
-      # Path translation so the transcript poller can read sub-agent
-      # JSONL files. Hooks run inside the code-server container and emit
-      # paths like /config/.claude/projects/<sid>/subagents/agent-<id>.jsonl
-      # — that path is meaningful inside code-server, not here. The bind
-      # below mounts the LXC host's actual code-server config at
-      # /host-claude inside this container, and these env vars rewrite
-      # /config/.claude/... → /host-claude/... in app/config.translate_path.
-      CLAUDE_PATH_HOST: "/config/.claude"
-      CLAUDE_PATH_CONTAINER: "/host-claude"
-      # Allowlist for GitService. Hooks emit project paths under
-      # /config/workspace (since both code-server and this container bind
-      # the LXC host's /opt at /config/workspace). The code default is
-      # ["/opt"] from an earlier deploy layout — override here so the
-      # allowlist matches the actual bind-mount, otherwise GitService
-      # rejects every project_root and the git-status panel stays empty.
-      ALLOWED_PROJECT_ROOTS: '["/config/workspace"]'
     volumes:
       - claude-office-data:/app/data
-      # Read-only access to the host workspace so GitService can run
-      # git status/log against the project the user is working in.
-      # Code-server (the chat host) bind-mounts the LXC's /opt at
-      # /config/workspace inside its container, so hooks send paths
-      # like /config/workspace/<project>. Mirroring the same mapping
-      # here lets those paths resolve identically inside claude-office
-      # — no path translation needed.
-      - /opt:/config/workspace:ro
-      # Read-only access to code-server's .claude directory so the
-      # transcript poller can read sub-agent JSONL files (where their
-      # tool calls and thinking-bubble content live). Without this,
-      # transcript_poller silently emits nothing because
-      # path.exists() is False inside the container, and sub-agents
-      # that send tool events through the hook are still missing the
-      # text/thinking bubble channel that the poller drives.
-      # Code-server's /config maps to /opt/appdata/code-server on the
-      # LXC host (verified via `docker inspect code-server`).
-      - /opt/appdata/code-server/.claude:/host-claude:ro
     labels:
       flame.type: application
       flame.name: Claude Office
