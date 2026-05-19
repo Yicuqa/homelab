@@ -43,6 +43,7 @@ services:
       POSTGRESQL_USER: guacamole_user
       POSTGRESQL_PASSWORD: ${GUACAMOLE_DB_PASSWORD:?set GUACAMOLE_DB_PASSWORD in Komodo stack env}
       POSTGRESQL_AUTO_CREATE_ACCOUNTS: "true"
+      WEBAPP_CONTEXT: ROOT
       TZ: Europe/Stockholm
     depends_on:
       guacamole-db:
