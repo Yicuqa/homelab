@@ -40,6 +40,12 @@ services:
     restart: unless-stopped
     environment:
       TZ: Europe/Stockholm
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z 127.0.0.1 4822 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
   guacamole:
     image: guacamole/guacamole:1.5.5
@@ -61,10 +67,11 @@ services:
       guacd:
         condition: service_started
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/guacamole/ | grep -q Guacamole || exit 1"]
-      interval: 60s
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:8080/guacamole/ || exit 1"]
+      interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 60s
 
 volumes:
   guacamole-db-data:
