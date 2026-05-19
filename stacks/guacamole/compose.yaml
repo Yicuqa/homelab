@@ -2,6 +2,7 @@ services:
   guacamole-init:
     image: guacamole/guacamole:1.5.5
     container_name: guacamole-init
+    user: "0:0"
     entrypoint: ["/bin/sh", "-c"]
     command:
       - >
