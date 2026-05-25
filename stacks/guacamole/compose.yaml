@@ -23,6 +23,8 @@ services:
     restart: unless-stopped
     environment:
       TZ: Europe/Stockholm
+    volumes:
+      - /srv/guacd-drives:/drives
     healthcheck:
       test: ["CMD-SHELL", "nc -z 127.0.0.1 4822 || exit 1"]
       interval: 30s
