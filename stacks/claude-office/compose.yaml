@@ -16,6 +16,11 @@ services:
       # would be created root-owned and SQLite would fail to open the
       # file when the backend runs as appuser.
       DATABASE_URL: "sqlite+aiosqlite:////app/data/visualizer.db"
+      # Shared mutation token: backend fail-closes every mutating /api/v1
+      # request without it. Hooks (code-server) and transcript-relay send
+      # it as `x-office-token`. Value lives in the Komodo stack env —
+      # never in this file (public repo).
+      CLAUDE_OFFICE_API_TOKEN: ${CLAUDE_OFFICE_API_TOKEN:?set CLAUDE_OFFICE_API_TOKEN in Komodo stack env}
     volumes:
       - claude-office-data:/app/data
     labels:

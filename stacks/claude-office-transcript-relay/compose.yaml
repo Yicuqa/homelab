@@ -17,6 +17,10 @@ services:
       - /opt/appdata/code-server/.claude:/host-claude:ro
     environment:
       BACKEND_URL: http://192.168.68.107:8000/api/v1/events
+      # Same shared mutation token as the claude-office stack — the
+      # backend fail-closes event POSTs without it. Value lives in the
+      # Komodo stack env, never in this file (public repo).
+      BACKEND_TOKEN: ${CLAUDE_OFFICE_API_TOKEN:?set CLAUDE_OFFICE_API_TOKEN in Komodo stack env}
       LOG_LEVEL: INFO
     labels:
       flame.type: application
