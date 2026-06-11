@@ -1,0 +1,17 @@
+# Split-horizon TLS-terminering för LAN-trafik.
+# Publika DNS pekar på Cloudflare-tunneln; Pi-hole pekar samma namn
+# på LXC 200 (192.168.68.107) där denna Caddy svarar med riktigt cert
+# via DNS-01. Ett block per hostname — lägg till fler tjänster här
+# när de ska få LAN-direktväg.
+
+{
+	email clint.wulkan@gmail.com
+}
+
+stream.szakoswulkan.eu {
+	tls {
+		dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+	}
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:8096
+}
