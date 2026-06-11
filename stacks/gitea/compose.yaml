@@ -17,6 +17,10 @@ services:
       GITEA__server__SSH_DOMAIN: 192.168.68.107
       GITEA__server__SSH_PORT: "2222"
       GITEA__service__DISABLE_REGISTRATION: "true"
+      # Skippa webb-installern: initiera direkt med SQLite. Admin-kontot
+      # skapas via CLI (gitea admin user create) efter första uppstarten.
+      GITEA__security__INSTALL_LOCK: "true"
+      GITEA__database__DB_TYPE: sqlite3
       GITEA__webhook__ALLOWED_HOST_LIST: "192.168.68.107"
     volumes:
       - gitea-data:/data
