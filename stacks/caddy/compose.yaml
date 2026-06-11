@@ -1,3 +1,25 @@
+# Split-horizon TLS-terminering för LAN-trafik.
+# Publika DNS pekar på Cloudflare-tunneln; Pi-hole pekar samma namn på
+# LXC 200 (192.168.68.107) där Caddy svarar med riktigt cert via DNS-01.
+# Caddyfilen ligger inline som compose-config eftersom Komodo-periphery
+# klonar repot till en docker-volym — relativa bind-mounts når den inte.
+# Lägg till ett block per hostname när fler tjänster ska få LAN-direktväg.
+
+configs:
+  caddyfile:
+    content: |
+      {
+      	email clint.wulkan@gmail.com
+      }
+
+      stream.szakoswulkan.eu {
+      	tls {
+      		dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+      	}
+      	encode zstd gzip
+      	reverse_proxy 127.0.0.1:8096
+      }
+
 services:
   caddy:
     image: ghcr.io/caddybuilds/caddy-cloudflare:2.10.0
@@ -9,8 +31,10 @@ services:
     environment:
       TZ: Europe/Stockholm
       CLOUDFLARE_API_TOKEN: ${CLOUDFLARE_API_TOKEN}
+    configs:
+      - source: caddyfile
+        target: /etc/caddy/Caddyfile
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - /opt/appdata/caddy/data:/data
       - /opt/appdata/caddy/config:/config
     healthcheck:
