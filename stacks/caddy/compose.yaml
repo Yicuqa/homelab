@@ -22,7 +22,7 @@ configs:
 
 services:
   caddy:
-    image: ghcr.io/caddybuilds/caddy-cloudflare:2.10.0
+    image: ghcr.io/caddybuilds/caddy-cloudflare:2.11.4
     container_name: caddy
     restart: unless-stopped
     network_mode: host
